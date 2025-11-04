@@ -205,34 +205,58 @@ let currentEmotion = '';
 let selectedEnvelopes = new Set();
 
 // Page elements
-const mainPage = document.getElementById('mainPage');
-const envelopePage = document.getElementById('envelopePage');
-const backBtn = document.getElementById('backBtn');
-const envelopesArea = document.getElementById('envelopesArea');
-const currentEmotionTitle = document.getElementById('currentEmotion');
-const modal = document.getElementById('messageModal');
-const modalOverlay = document.getElementById('modalOverlay');
-const closeModal = document.getElementById('closeModal');
-const messageContent = document.getElementById('messageContent');
+let mainPage, envelopePage, backBtn, envelopesArea, currentEmotionTitle, modal, modalOverlay, closeModal, messageContent;
 
-// Initialize emotion cards
-document.querySelectorAll('.emotion-card').forEach(card => {
-    card.addEventListener('click', () => {
-        const emotion = card.dataset.emotion;
-        openEmotionPage(emotion);
+// Initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+    // Get page elements
+    mainPage = document.getElementById('mainPage');
+    envelopePage = document.getElementById('envelopePage');
+    backBtn = document.getElementById('backBtn');
+    envelopesArea = document.getElementById('envelopesArea');
+    currentEmotionTitle = document.getElementById('currentEmotion');
+    modal = document.getElementById('messageModal');
+    modalOverlay = document.getElementById('modalOverlay');
+    closeModal = document.getElementById('closeModal');
+    messageContent = document.getElementById('messageContent');
+
+    // Initialize emotion cards
+    document.querySelectorAll('.emotion-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const emotion = card.dataset.emotion;
+            openEmotionPage(emotion);
+        });
+    });
+
+    // Back button
+    backBtn.addEventListener('click', () => {
+        mainPage.classList.add('active');
+        envelopePage.classList.remove('active');
+        selectedEnvelopes.clear();
+    });
+
+    // Modal close handlers
+    closeModal.addEventListener('click', closeModalHandler);
+    modalOverlay.addEventListener('click', closeModalHandler);
+
+    // Keyboard support
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModalHandler();
+        }
+    });
+
+    // Responsive envelope positioning on resize
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            if (envelopePage && envelopePage.classList.contains('active')) {
+                generateEnvelopes(currentEmotion);
+            }
+        }, 250);
     });
 });
-
-// Back button
-backBtn.addEventListener('click', () => {
-    mainPage.classList.add('active');
-    envelopePage.classList.remove('active');
-    selectedEnvelopes.clear();
-});
-
-// Modal close handlers
-closeModal.addEventListener('click', closeModalHandler);
-modalOverlay.addEventListener('click', closeModalHandler);
 
 function openEmotionPage(emotion) {
     currentEmotion = emotion;
@@ -316,22 +340,4 @@ function openMessage(envelopeElement, message, index) {
 function closeModalHandler() {
     modal.classList.remove('active');
 }
-
-// Keyboard support
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains('active')) {
-        closeModalHandler();
-    }
-});
-
-// Responsive envelope positioning on resize
-let resizeTimer;
-window.addEventListener('resize', () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => {
-        if (envelopePage.classList.contains('active')) {
-            generateEnvelopes(currentEmotion);
-        }
-    }, 250);
-});
 
