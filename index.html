@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>情绪盒子 by Cindy</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Main Page: Emotion Selection -->
+    <div id="mainPage" class="page active">
+        <div class="container">
+            <h1 class="title">💌 情绪盒子</h1>
+            <p class="subtitle">选择你此刻的心情...</p>
+            
+            <div class="emotions-grid">
+                <div class="emotion-card" data-emotion="happy" style="--card-color: #FFD93D">
+                    <div class="emoji">😊</div>
+                    <div class="emotion-name">开心</div>
+                </div>
+                
+                <div class="emotion-card" data-emotion="努力" style="--card-color: #6BCB77">
+                    <div class="emoji">💪</div>
+                    <div class="emotion-name">努力</div>
+                </div>
+                
+                <div class="emotion-card" data-emotion="要鼓励" style="--card-color: #4D96FF">
+                    <div class="emoji">🌟</div>
+                    <div class="emotion-name">要鼓励</div>
+                </div>
+                
+                <div class="emotion-card" data-emotion="想念" style="--card-color: #FFB6D9">
+                    <div class="emoji">🥺</div>
+                    <div class="emotion-name">想念</div>
+                </div>
+                
+                <div class="emotion-card" data-emotion="烦恼" style="--card-color: #A084DC">
+                    <div class="emoji">😰</div>
+                    <div class="emotion-name">烦恼</div>
+                </div>
+                
+                <div class="emotion-card" data-emotion="伤心" style="--card-color: #6C9BCF">
+                    <div class="emoji">😢</div>
+                    <div class="emotion-name">伤心</div>
+                </div>
+                
+                <div class="emotion-card" data-emotion="崩溃" style="--card-color: #FF6B6B">
+                    <div class="emoji">😫</div>
+                    <div class="emotion-name">崩溃</div>
+                </div>
+                
+                <div class="emotion-card" data-emotion="疲惫" style="--card-color: #95B8D1">
+                    <div class="emoji">😴</div>
+                    <div class="emotion-name">疲惫</div>
+                </div>
+                
+                <div class="emotion-card" data-emotion="生气" style="--card-color: #FF8989">
+                    <div class="emoji">😤</div>
+                    <div class="emotion-name">生气</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Envelope Page -->
+    <div id="envelopePage" class="page">
+        <button class="back-btn" id="backBtn">← 返回</button>
+        <div class="envelope-container">
+            <h2 class="emotion-title" id="currentEmotion"></h2>
+            <p class="instruction">选择一封信打开吧 ✉️</p>
+            <div class="envelopes-area" id="envelopesArea">
+                <!-- Envelopes will be generated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Message -->
+    <div id="messageModal" class="modal">
+        <div class="modal-overlay" id="modalOverlay"></div>
+        <div class="modal-content">
+            <button class="close-btn" id="closeModal">✕</button>
+            <div class="letter">
+                <div class="letter-header">
+                    <div class="stamp">💌</div>
+                </div>
+                <div class="letter-body">
+                    <p id="messageContent">Your message here...</p>
+                </div>
+                <div class="letter-footer">
+                    <p class="signature">—— 77</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
